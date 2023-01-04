@@ -13,9 +13,7 @@
 
 	let element: HTMLDivElement;
 	let map: L.Map;
-	let popup: HTMLDivElement;
 	let selectedItem: MapItem | null = null;
-
 	onMount(() => {
 		createMap();
 	});
@@ -58,7 +56,7 @@
 	}
 </script>
 
-<div bind:this={element} class="relative">
+<div bind:this={element} class="map-container">
 	{#if map}
 		{#each data as item, index (index)}
 			<Marker {item} {map} on:click={() => onItemClick(item)} />
@@ -66,12 +64,13 @@
 	{/if}
 </div>
 
-<div bind:this={popup}>
+{#if selectedItem}
 	<Popup item={selectedItem} {map} />
-</div>
+{/if}
 
 <style>
-	.relative {
+	.map-container {
 		height: 100%;
+		position: relative;
 	}
 </style>
